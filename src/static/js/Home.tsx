@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import { Grid } from './components/grid/Grid'
-import { Keyboard } from './components/keyboard/Keyboard'
-import { InfoModal } from './components/modals/InfoModal'
-import { StatsModal } from './components/modals/StatsModal'
-import { SettingsModal } from './components/modals/SettingsModal'
+import { Grid } from '../../components/grid/Grid'
+import { Keyboard } from '../../components/keyboard/Keyboard'
+import { InfoModal } from '../../components/modals/InfoModal'
+import { StatsModal } from '../../components/modals/StatsModal'
+import { SettingsModal } from '../../components/modals/SettingsModal'
 import {
   WIN_MESSAGES,
   GAME_COPIED_MESSAGE,
@@ -11,43 +11,42 @@ import {
   WORD_NOT_FOUND_MESSAGE,
   CORRECT_WORD_MESSAGE,
   HARD_MODE_ALERT_MESSAGE,
-} from './constants/strings'
+} from '../../constants/strings'
 import {
   MAX_WORD_LENGTH,
   MAX_CHALLENGES,
   REVEAL_TIME_MS,
   GAME_LOST_INFO_DELAY,
   WELCOME_INFO_MODAL_MS,
-} from './constants/settings'
+} from '../../constants/settings'
 import {
   isWordInWordList,
   isWinningWord,
   solution,
   findFirstUnusedReveal,
   unicodeLength,
-} from './lib/words'
-import { addStatsForCompletedGame, loadStats } from './lib/stats'
+} from '../../lib/words'
+import { addStatsForCompletedGame, loadStats } from '../../lib/stats'
 import {
   loadGameStateFromLocalStorage,
   saveGameStateToLocalStorage,
   setStoredIsHighContrastMode,
   getStoredIsHighContrastMode,
-} from './lib/localStorage'
+} from '../../lib/localStorage'
 import { default as GraphemeSplitter } from 'grapheme-splitter'
 
-import './App.css'
-import { AlertContainer } from './components/alerts/AlertContainer'
-import { useAlert } from './context/AlertContext'
-import { Navbar } from './components/navbar/Navbar'
-import { useHistory } from 'react-router-dom'
-import AppRouting from './app.routing'
+import '../../App.css'
+import { AlertContainer } from '../../components/alerts/AlertContainer'
+import { useAlert } from '../../context/AlertContext'
+import { Navbar } from '../../components/navbar/Navbar'
+import { useHistory } from 'react-router-dom';
 
-function App() {
+function Home() {
   const prefersDarkMode = window.matchMedia(
     '(prefers-color-scheme: dark)'
   ).matches
 
-  const history = useHistory()
+  const history = useHistory();
 
   const { showError: showErrorAlert, showSuccess: showSuccessAlert } =
     useAlert()
@@ -244,7 +243,59 @@ function App() {
     }
   }
 
-  return <AppRouting />
+  return (
+    <div className="h-screen flex flex-col">
+      <Navbar
+        setIsInfoModalOpen={setIsInfoModalOpen}
+        setIsStatsModalOpen={setIsStatsModalOpen}
+        setIsSettingsModalOpen={setIsSettingsModalOpen}
+      />
+      <div className="pt-2 px-1 pb-8 md:max-w-7xl w-full mx-auto sm:px-6 lg:px-8 flex flex-col grow">
+        <div className="pb-6 grow">
+          <Grid
+            guesses={guesses}
+            currentGuess={currentGuess}
+            isRevealing={isRevealing}
+            currentRowClassName={currentRowClass}
+          />
+        </div>
+        <Keyboard
+          onChar={onChar}
+          onDelete={onDelete}
+          onEnter={onEnter}
+          guesses={guesses}
+          isRevealing={isRevealing}
+        />
+        <InfoModal
+          isOpen={isInfoModalOpen}
+          handleClose={() => setIsInfoModalOpen(false)}
+        />
+        <StatsModal
+          isOpen={isStatsModalOpen}
+          handleClose={() => setIsStatsModalOpen(false)}
+          guesses={guesses}
+          gameStats={stats}
+          isGameLost={isGameLost}
+          isGameWon={isGameWon}
+          handleShare={() => showSuccessAlert(GAME_COPIED_MESSAGE)}
+          isHardMode={isHardMode}
+          isDarkMode={isDarkMode}
+          isHighContrastMode={isHighContrastMode}
+        />
+        <SettingsModal
+          isOpen={isSettingsModalOpen}
+          handleClose={() => setIsSettingsModalOpen(false)}
+          isHardMode={isHardMode}
+          handleHardMode={handleHardMode}
+          isDarkMode={isDarkMode}
+          handleDarkMode={handleDarkMode}
+          isHighContrastMode={isHighContrastMode}
+          handleHighContrastMode={handleHighContrastMode}
+        />
+        <AlertContainer />
+      </div>
+    </div>
+  )
 }
 
-export default App
+export default Home

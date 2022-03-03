@@ -7,7 +7,7 @@ type StoredGameState = {
 }
 
 export const saveGameStateToLocalStorage = (gameState: StoredGameState) => {
-  localStorage.setItem(gameStateKey, JSON.stringify(gameState))
+  localStorage.setItem("", JSON.stringify(gameState))
 }
 
 export const loadGameStateFromLocalStorage = () => {
@@ -27,7 +27,7 @@ export type GameStats = {
 }
 
 export const saveStatsToLocalStorage = (gameStats: GameStats) => {
-  localStorage.setItem(gameStatKey, JSON.stringify(gameStats))
+  localStorage.setItem("", JSON.stringify(gameStats))
 }
 
 export const loadStatsFromLocalStorage = () => {

@@ -11,6 +11,8 @@ import {
   NEW_WORD_TEXT,
   SHARE_TEXT,
 } from '../../constants/strings'
+import { useHistory } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 type Props = {
   isOpen: boolean
@@ -37,6 +39,7 @@ export const StatsModal = ({
   isDarkMode,
   isHighContrastMode,
 }: Props) => {
+  const history = useHistory();
   if (gameStats.totalGames <= 0) {
     return (
       <BaseModal
@@ -48,6 +51,7 @@ export const StatsModal = ({
       </BaseModal>
     )
   }
+
   return (
     <BaseModal
       title={STATISTICS_TITLE}
@@ -85,6 +89,18 @@ export const StatsModal = ({
           >
             {SHARE_TEXT}
           </button>
+          <button
+            type="button"
+            className="mt-2 w-full rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm"
+            onClick={() => {
+              history.push('/NFT')
+            }}
+          >
+            Mint Your Gameplay
+          </button>
+          {/* <Link to={`/NFT`} className="mt-2 w-full rounded-md border border-transparent shadow-sm px-10 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:text-sm">
+                MINT NFT
+          </Link> */}
         </div>
       )}
     </BaseModal>
