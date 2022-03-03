@@ -234,10 +234,10 @@ a[href='#slide-4'] {
   margin: 0;
   border: 0;
   font-size: 18px;
-  position: absolute;
-  top: 80%;
+  position: relative;
+  top: 50%;
   left: 50%;
-  margin-top: -25px;
+  margin-top: 80px;
   margin-left: -100px;
   width: 200px;
   height: 50px;
@@ -311,4 +311,14 @@ a[href='#slide-4'] {
   transition: left 0.30000000000000004s ease;
   -webkit-transition: left 0.30000000000000004s ease;
   -moz-transition: left 0.30000000000000004s ease;
+}
+
+.wallet {
+  content: url(fox.png);
+  position: absolute;
+  top: 3%;
+  left: 93%;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
 }

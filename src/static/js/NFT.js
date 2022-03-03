@@ -83,7 +83,7 @@ async function notify(_txt){
 return (
   <>
   <div className="NFTBody">
-    <div className="slider" onLoad={()=>login()}>
+    <div className="slider">
       <a href="#slide-1"></a>
       <a href="#slide-2"></a>
       <a href="#slide-3"></a>
@@ -108,6 +108,7 @@ return (
             <div></div>
             <div onClick={()=>mintToken()}>MINT NFT</div>
         </div>
+      <div class="wallet" onClick={()=>login()}></div>
   </div>
 </div>
 </>);
