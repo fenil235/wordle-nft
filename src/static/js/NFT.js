@@ -103,12 +103,15 @@ return (
           <div><img src="https://s7.gifyu.com/images/demo.gif"></img></div>
         </div>
       </div>
+      <iframe name="dummyframe" id="dummyframe" className="iframe"></iframe>
+      
+      <form name="search-form" action="http://localhost:5000/" method="get" target="dummyframe">
         <div className="button_base b03_skewed_slide_in">
-            <div onClick={()=>mintToken()}>MINT NFT</div>
+            <div type="button" onClick={() => document.forms['search-form'].submit()}>MINT NFT</div>
             <div></div>
-            <div onClick={()=>mintToken()}>MINT NFT</div>
+            <div type="button" onClick={() => document.forms['search-form'].submit()}>MINT NFT</div>
         </div>
-      <div class="wallet" onClick={()=>login()}></div>
+        </form>
   </div>
 </div>
 </>);
